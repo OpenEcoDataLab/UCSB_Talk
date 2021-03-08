@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Matthew Ross" />
+  <meta name="dcterms.date" content="2021-03-08" />
+  <title>Using environmental big data to understand, manage, and design ecosystems</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/theme/night.css" id="theme">
+
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="style.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <link href="index_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+    <link href="index_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Using environmental big data to understand, manage, and design ecosystems</h1>
+    <h2 class="author">Matthew Ross</h2>
+    <h3 class="date">03/08/2021</h3>
+</section>
+
+<section><section id="motivation-and-roadmap" class="title-slide slide level1"><h1>Motivation and Roadmap</h1><p><em>The point is that if we are going to design ecosystems (and we continually do so whether we care to face all of the implications or not) then it will be best to design them intentionally, making use of all the ecological understanding we can bring to bear…</em></p>
+<p>– Jon Tillman Lyle, 1985</p></section><section id="acknowledgments" class="slide level2">
+<h2>Acknowledgments</h2>
+<p><img data-src="images/me.jpg" /></p>
+</section><section id="acknowledgments-1" class="slide level2">
+<h2>Acknowledgments</h2>
+<p><img data-src="images/bernhardt_lab.jpg" /></p>
+</section><section id="roadmap" class="slide level2">
+<h2>Roadmap</h2>
+<ul>
+<li class="fragment">Mountaintop Mining (local, sensors)
+<ul>
+<li class="fragment">Deeper, flatter</li>
+<li class="fragment">Slower, saltier</li>
+<li class="fragment">Not recovery, novelty</li>
+</ul></li>
+<li class="fragment">Remote sensing, democratizing data (global, open)
+<ul>
+<li class="fragment">Dissonance to harmony</li>
+<li class="fragment">Science along (not in) rivers</li>
+<li class="fragment">Small, clearer lakes</li>
+</ul></li>
+<li class="fragment">Putting all this data to work (macroscale, infrastructure)
+<ul>
+<li class="fragment">Beyond bespoke watershed ecosystem studies</li>
+<li class="fragment">What do water suppliers need to know about their watershed?</li>
+<li class="fragment">Using big environmental data for environmental justice</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="mountaintop-mining" class="title-slide slide level1"><h1>Mountaintop Mining</h1><iframe width="900" height="500" src="https://www.youtube.com/embed/p5RcbPZXUZo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe></section><section id="deeper-flatter" class="slide level2">
+<h2>Deeper, flatter</h2>
+<p>How does mountaintop mining physically alter the landscape?</p>
+</section><section id="section" class="slide level2">
+<h2></h2>
+<iframe src="https://drive.google.com/file/d/1r9Gr5lVYWV88ySocI800ywg667pdf8Au/preview" width="100%" height="750">
+</iframe>
+</section><section id="section-1" class="slide level2">
+<h2></h2>
+<iframe src="https://skytruthmtr.appspot.com/#" width="100%" height="750px">
+</iframe>
+</section><section id="section-2" class="slide level2">
+<h2></h2>
+<iframe src="https://drive.google.com/file/d/1rl8xrKi4f_SthDyoAef2MyJdJtnvfj2r/preview" width="100%" height="750">
+</iframe>
+</section><section id="section-3" class="slide level2">
+<h2></h2>
+<iframe src="https://cuahsi.shinyapps.io/mtm_explore/" width="100%" height="750px">
+</iframe>
+</section><section id="deeper-flatter-1" class="slide level2">
+<h2>Deeper, flatter</h2>
+<p>How does mountaintop mining physically alter the landscape?</p>
+</section><section id="deeper-flatter-2" class="slide level2">
+<h2>Deeper, flatter</h2>
+<p>Mountaintop mining deposited 6.4 km3 of spoil into headwater valley fills, lowering mined landscape slopes by 10º.</p>
+</section><section id="slower-saltier" class="slide level2">
+<h2>Slower, saltier</h2>
+<p>How do these physical changes lead to changes in downstream hydrology and biogeochemistry?</p>
+</section><section id="section-4" class="slide level2">
+<h2></h2>
+<p><a href="https://cuahsi.shinyapps.io/mtm_baseflow/">Mining elevates baseflow</a></p>
+</section><section id="section-5" class="slide level2">
+<h2></h2>
+<p><a href="https://cuahsi.shinyapps.io/mtm_weathering/">Mining elevates weathering</a></p>
+</section><section id="section-6" class="slide level2">
+<h2></h2>
+<p><img data-src="images/CO2_Sink_Strength.png" /></p>
+</section><section id="slower-saltier-1" class="slide level2">
+<h2>Slower, saltier</h2>
+<p>How do these physical changes lead to changes in downstream hydrology and biogeochemistry?</p>
+</section><section id="slower-saltier-2" class="slide level2">
+<h2>Slower, saltier</h2>
+<p>Water stored in valley fills reacts with pyrite &amp; generates a 45-fold increase in dissolved ion flux and a net geologic C release in mined watersheds.</p>
+</section><section id="not-recovery-novelty" class="slide level2">
+<h2>Not recovery, novelty</h2>
+<p>How long will these impacts last?</p>
+<p><em>SMCRA</em></p>
+</section><section id="section-7" class="slide level2">
+<h2></h2>
+<p><img data-src="images/m5.jpg" /></p>
+</section><section id="section-8" class="slide level2">
+<h2></h2>
+<p><img data-src="images/m20.jpg" /></p>
+</section><section id="section-9" class="slide level2">
+<h2></h2>
+<p><img data-src="images/NDVI_wide.png" /></p>
+</section><section id="section-10" class="slide level2">
+<h2></h2>
+<p><img data-src="images/vf.jpg" /></p>
+</section><section id="section-11" class="slide level2">
+<h2></h2>
+<p><img data-src="images/ref_l.png" /></p>
+</section><section id="section-12" class="slide level2">
+<h2></h2>
+<p><img data-src="images/not_vf.png" /></p>
+</section><section id="section-13" class="slide level2">
+<h2></h2>
+<p><img data-src="images/vf_l.png" /></p>
+</section><section id="section-14" class="slide level2">
+<h2></h2>
+<p><img data-src="images/geomorph.png" /></p>
+</section><section id="section-15" class="slide level2">
+<h2></h2>
+<ul>
+<li class="fragment">Savannah vegetation (&gt; 35 years)</li>
+<li class="fragment">Baseflow dominance (&gt; 25 years)</li>
+<li class="fragment">Elevated weathering (&gt; 30 years)</li>
+<li class="fragment">Geomorphic changes (&gt; 10,000 years)</li>
+</ul>
+</section><section id="not-recovery-novelty-1" class="slide level2">
+<h2>Not recovery, novelty</h2>
+<p>Mined landscapes and the streams that drain them are novel ecosystems, unlikely to return to their previous conditions over human timescales.</p>
+</section><section id="mountaintop-mining-1" class="slide level2">
+<h2>Mountaintop mining</h2>
+<p><img data-src="images/vf.jpg" /></p>
+</section></section>
+<section><section id="remote-sensing-democratizing-data" class="title-slide slide level1"><h1>Remote sensing, democratizing data</h1><p><img data-src="https://ars.els-cdn.com/content/image/1-s2.0-S1470160X15007141-gr3.jpg" /></p></section><section id="section-16" class="slide level2">
+<h2></h2>
+<p><img data-src="http://www.un-spider.org/sites/default/files/image14.png" /></p>
+</section><section id="section-17" class="slide level2">
+<h2></h2>
+<p><img src="images/florida_color.png" width="669" /></p>
+</section><section id="section-18" class="slide level2">
+<h2></h2>
+<p><img data-src="images/rs_use.PNG" /></p>
+</section><section id="dissonance-to-harmony" class="slide level2">
+<h2>Dissonance to harmony</h2>
+</section><section id="section-19" class="slide level2">
+<h2></h2>
+<iframe width="100%" height="750" src="https://www.youtube.com/embed/6LZURaRH3Ws" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</section><section id="science-along-not-in-rivers" class="slide level2">
+<h2>Science along (not in) rivers</h2>
+</section><section id="section-20" class="slide level2">
+<h2></h2>
+<iframe src="https://drive.google.com/file/d/1N8Vm3IcG1yNpcfg1WywxzPQh3kjmG_UU/preview" width="100%" height="750">
+</iframe>
+</section><section id="how-are-americas-rivers-changing-color" class="slide level2">
+<h2>How are America’s rivers changing color?</h2>
+<p><a href="https://cuahsi.shinyapps.io/RiverColor/">Lead by John Gardner</a></p>
+</section><section id="what-are-the-dominant-controls-of-sediment-in-the-colorado-river" class="slide level2">
+<h2>What are the dominant controls of sediment in the Colorado River?</h2>
+<p><em>Work with Matt Cohen and Jim Jawitz</em></p>
+</section><section id="section-21" class="slide level2">
+<h2></h2>
+<p><img data-src="images/TSS_Validation.png" /></p>
+</section><section id="section-22" class="slide level2">
+<h2></h2>
+<p><img data-src="images/plaid_detauils.png" /></p>
+</section><section id="section-23" class="slide level2">
+<h2></h2>
+<embed src="images/tss.zoom.html" style="width:1100px; height: 700px;">
+</section><section id="section-24" class="slide level2">
+<h2></h2>
+<p><img data-src="images/q90profiles.png" /></p>
+</section><section id="section-25" class="slide level2">
+<h2></h2>
+<p><img data-src="images/q50profiles.png" /></p>
+</section><section id="how-have-macrophytes-come-to-dominate-the-loire-river" class="slide level2">
+<h2>How have macrophytes come to dominate the Loire river?</h2>
+<p><em>Work with Gilles Pinay, Florentina Moatar, Jake Diamond, Matt Cohen, John Gardner</em></p>
+</section><section id="section-26" class="slide level2">
+<h2></h2>
+<p><img data-src="images/loire_chl.png" /></p>
+</section><section id="section-27" class="slide level2">
+<h2></h2>
+<p><img data-src="images/loire_trends.png" /></p>
+</section><section id="section-28" class="slide level2">
+<h2></h2>
+<iframe src="https://drive.google.com/file/d/1WGulcwuskzIibl9D7E2gVa6tB09Y2cXH/preview" width="100%" height="700">
+</iframe>
+</section><section id="smaller-clearer-lakes" class="slide level2">
+<h2>Smaller, clearer lakes</h2>
+<p><em>Lead by Simon Topp, UNC Chapel Hill</em></p>
+</section><section id="section-29" class="slide level2">
+<h2></h2>
+<p><img data-src="images/secchi_1.PNG" /></p>
+</section><section id="section-30" class="slide level2">
+<h2></h2>
+<p><img data-src="images/secchi_2.PNG" /></p>
+</section><section id="section-31" class="slide level2">
+<h2></h2>
+<p><img data-src="images/sample_design.PNG" /></p>
+</section><section id="section-32" class="slide level2">
+<h2></h2>
+<p><img data-src="images/rs_trends_secchi.PNG" /></p>
+</section><section id="section-33" class="slide level2">
+<h2></h2>
+<p><a href="images/LimnoSat_US_Tutorial.html">Tutorials</a></p>
+</section></section>
+<section><section id="putting-all-this-data-to-work" class="title-slide slide level1"><h1>Putting all this data to work</h1></section><section id="beyond-bespoke-watershed-ecosystem-studies" class="slide level2">
+<h2>Beyond bespoke watershed ecosystem studies</h2>
+<iframe src="images/network_map.html" width="100%" height="750px">
+</iframe>
+</section><section id="section-34" class="slide level2">
+<h2></h2>
+<p><a href="https://cuahsi.shinyapps.io/macrosheds/">Macrosheds</a></p>
+</section><section id="what-do-water-suppliers-need-to-know-about-their-watershed" class="slide level2">
+<h2>What do water suppliers need to know about their watershed?</h2>
+</section><section id="section-35" class="slide level2">
+<h2></h2>
+<iframe src="images/site_map.html" width="100%" height="750px">
+</iframe>
+</section><section id="section-36" class="slide level2">
+<h2></h2>
+<iframe src="https://drive.google.com/file/d/1L-lxfHBS_ueZcsApO1IJcJfonAQXv1AF/preview" width="100%" height="750">
+</iframe>
+</section><section id="using-big-environmental-data-for-environmental-justice" class="slide level2">
+<h2>Using big environmental data for environmental justice</h2>
+<p><img data-src="images/e_coli.PNG" /></p>
+</section></section>
+<section><section id="conclusions" class="title-slide slide level1"><h1>Conclusions</h1></section><section id="original-motivation" class="slide level2">
+<h2>Original motivation</h2>
+<p><em>The point is that if we are going to design ecosystems (and we continually do so whether we care to face all of the implications or not) then it will be best to design them intentionally, making use of all the ecological understanding we can bring to bear…</em></p>
+<p>– Jon Tillman Lyle, 1985</p>
+</section><section id="current-motivation" class="slide level2">
+<h2>Current motivation</h2>
+<ul>
+<li class="fragment">Open science: one term, five purposes <a href="https://link.springer.com/chapter/10.1007/978-3-319-00026-8_2">Fecher and Friesike 2014</a></li>
+</ul>
+</section><section id="section-37" class="slide level2">
+<h2></h2>
+<p><img data-src="images/open.png" /></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="index_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="index_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1536,
+        height: 864,
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+
+
+        chalkboard: {
+        },
+
+        keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'index_files/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
